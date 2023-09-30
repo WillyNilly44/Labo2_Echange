@@ -16,54 +16,71 @@ export default class MathsController extends Controller {
         {
             this.HttpContext.response.HTML('<p><h1>GET : Maths endpoint</h1></p>' +
             '<p><h1>List of possible query strings:</h1></p><hr>' +
-            '<p><h3>? op = + & x = number & y = number</p><p>return {"op":"+", "x":number, "y":numvber, "value": x + y}</h3></p>' +
-            '<p><h3>? op = - & x = number & y = number</p><p>return {"op":"-", "x":number, "y":numvber, "value": x - y}</h3></p>' +
-            '<p><h3>? op = * & x = number & y = number</p><p>return {"op":"*", "x":number, "y":numvber, "value": x * y}</h3></p>' +
-            '<p><h3>? op = / & x = number & y = number</p><p>return {"op":"/", "x":number, "y":numvber, "value": x / y}</h3></p>' +
-            '<p><h3>? op = % & x = number & y = number</p><p>return {"op":"%", "x":number, "y":numvber, "value": x % y}</h3></p>' +
-            '<p><h3>? op = ! & n = integer</p><p>return {"op":"%", "n":integer, "value": n!}</h3></p>' +
-            '<p><h3>? op = p & n = integer</p><p>return {"op":"p", "n":integer, "value": true if n is a prime number}</h3></p>' +
+            '<p><h3>? op = + & x = number & y = number</p><p>return {"op":"+", "x":number, "y":numvber, "value": x + y}</h3></p> <hr>' +
+            '<p><h3>? op = - & x = number & y = number</p><p>return {"op":"-", "x":number, "y":numvber, "value": x - y}</h3></p> <hr>' +
+            '<p><h3>? op = * & x = number & y = number</p><p>return {"op":"*", "x":number, "y":numvber, "value": x * y}</h3></p> <hr>' +
+            '<p><h3>? op = / & x = number & y = number</p><p>return {"op":"/", "x":number, "y":numvber, "value": x / y}</h3></p> <hr>' +
+            '<p><h3>? op = % & x = number & y = number</p><p>return {"op":"%", "x":number, "y":numvber, "value": x % y}</h3></p> <hr>' +
+            '<p><h3>? op = ! & n = integer</p><p>return {"op":"%", "n":integer, "value": n!}</h3></p><hr>' +
+            '<p><h3>? op = p & n = integer</p><p>return {"op":"p", "n":integer, "value": true if n is a prime number}</h3></p> <hr>' +
             '<p><h3>? op = np & n = integer</p><p>return {"op":"np", "n":integer, "value": nth prime number}</h3></p>'
         );
         }
         if (x != null && y != null || n != null) {
-            switch (op) {
-                case " ":
-                    value = x + y
-                    message = "{'op':"+op+",'x':"+x+", 'y':"+y+",  'value':"+value+"}";
-                    this.HttpContext.response.JSON(message);
-                    break;
-                case "-":
-                    value = x - y
-                    message = "{'op':"+op+",'x':"+x+", 'y':"+y+",  'value':"+value+"}";
-                    this.HttpContext.response.JSON(message);
-                    break;
-                case "*":
-                    value = x * y
-                    message = "{'op':"+op+",'x':"+x+", 'y':"+y+",  'value':"+value+"}";
-                    this.HttpContext.response.JSON(message);
-                    break;
-                case "/":
-                    value = x / y
-                    message = "{'op':"+op+",'x':"+x+", 'y':"+y+",  'value':"+value+"}";
-                    this.HttpContext.response.JSON(message);
-                    break;
-                case "%":
-                    value = !n;
-                    message = "{'op':"+op+",'n':"+n+"  'value':"+value+"}";
-                    this.HttpContext.response.JSON(message);
-                    break;
-                case "n":
-                    value = isPrimeNumber(n);
-                    message = "{'op':"+op+",'n':"+n+"  'value':"+value+"}";
-                    this.HttpContext.response.JSON(message);
-                    break;
-                case "np":
-                    message = "{'op':"+op+",'n':"+n+"  'value':"+primePosition(n)+"}";
-                    this.HttpContext.response.JSON(message);
-                    break;
-
+            if(isNaN(x)|| isNaN(y))
+            {
+                message = "{'op':"+op+",'x':"+x+", 'y':"+y+",  'Error':Un des paramètre n'est pas un nombre}";
+                this.HttpContext.response.JSON(message);
             }
+            else
+            {
+                switch (op) {
+                    case " ":
+                        value = x + y
+                        message = "{'op':"+op+",'x':"+x+", 'y':"+y+",  'value':"+value+"}";
+                        this.HttpContext.response.JSON(message);
+                        break;
+                    case "-":
+                        value = x - y
+                        message = "{'op':"+op+",'x':"+x+", 'y':"+y+",  'value':"+value+"}";
+                        this.HttpContext.response.JSON(message);
+                        break;
+                    case "*":
+                        value = x * y
+                        message = "{'op':"+op+",'x':"+x+", 'y':"+y+",  'value':"+value+"}";
+                        this.HttpContext.response.JSON(message);
+                        break;
+                    case "/":
+                        value = x / y
+                        message = "{'op':"+op+",'x':"+x+", 'y':"+y+",  'value':"+value+"}";
+                        this.HttpContext.response.JSON(message);
+                        break;
+                    case "%":
+                        value = x%y;
+                        message = "{'op':"+op+",'x':"+x+", 'y':"+y+",  'value':"+value+"}";
+                        this.HttpContext.response.JSON(message);
+                        break;
+                    case "!":
+                        value = !n;
+                        message = "{'op':"+op+",'n':"+n+"  'value':"+value+"}";
+                        this.HttpContext.response.JSON(message);
+                        break;
+                    case "n":
+                        value = isPrimeNumber(n);
+                        message = "{'op':"+op+",'n':"+n+"  'value':"+value+"}";
+                        this.HttpContext.response.JSON(message);
+                        break;
+                    case "np":
+                        message = "{'op':"+op+",'n':"+n+"  'value':"+primePosition(n)+"}";
+                        this.HttpContext.response.JSON(message);
+                        break;
+                    default:
+                        message = "{'op':"+op+",'x':"+x+", 'y':"+y+",  'Error':Operateur invalide}";
+                        this.HttpContext.response.JSON(message);
+    
+                }
+            }
+            
         }
     }
 }
