@@ -5,14 +5,14 @@ export default class MathsController extends Controller {
         super(HttpContext);
     }
     get(id) {
-        let op = this.HttpContext.path.params.op;
-        console.log(op);
-        let x = parseFloat(this.HttpContext.path.params.x);
-        let y = parseFloat(this.HttpContext.path.params.y);
-        let n = this.HttpContext.path.params.n;
-        let value;
-        let message;
-        if(isNaN(x) && isNaN(y) && op == undefined)
+        let test = {
+            op : this.HttpContext.path.params.op,
+            x:this.HttpContext.path.params.x,
+            y:this.HttpContext.path.params.y,
+            n:"",
+            value:0
+        }
+       /* if(isNaN(x) && isNaN(y) && op == undefined)
         {
             this.HttpContext.response.HTML('<p><h1>GET : Maths endpoint</h1></p>' +
             '<p><h1>List of possible query strings:</h1></p><hr>' +
@@ -25,20 +25,19 @@ export default class MathsController extends Controller {
             '<p><h3>? op = p & n = integer</p><p>return {"op":"p", "n":integer, "value": true if n is a prime number}</h3></p> <hr>' +
             '<p><h3>? op = np & n = integer</p><p>return {"op":"np", "n":integer, "value": nth prime number}</h3></p>'
         );
-        }
-        if (x != null && y != null || n != null) {
-            if(isNaN(x)|| isNaN(y))
+        }*/
+        if (test.x != null && test.y != null || test.n != null) {
+            /*if(isNaN(x)|| isNaN(y))
             {
                 message = "{'op':"+op+",'x':"+x+", 'y':"+y+",  'Error':Un des paramètre n'est pas un nombre}";
                 this.HttpContext.response.JSON(message);
-            }
-            else
-            {
-                switch (op) {
+            }*/
+            //else
+            //{
+                switch (test.op) {
                     case " ":
-                        value = x + y
-                        message = "{'op':"+op+",'x':"+x+", 'y':"+y+",  'value':"+value+"}";
-                        this.HttpContext.response.JSON(message);
+                        test.value = test.x+test.y
+                        this.HttpContext.response.JSON(test);
                         break;
                     case "-":
                         value = x - y
@@ -75,11 +74,11 @@ export default class MathsController extends Controller {
                         this.HttpContext.response.JSON(message);
                         break;
                     default:
-                        message = "{'op':"+op+",'x':"+x+", 'y':"+y+",  'Error':Operateur invalide}";
-                        this.HttpContext.response.JSON(message);
+                        //message = "{'op':"+op+",'x':"+x+", 'y':"+y+",  'Error':Operateur invalide}";
+                        this.HttpContext.response.JSON("bruh");
     
                 }
-            }
+            //}
             
         }
     }
